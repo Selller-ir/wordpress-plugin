@@ -49,6 +49,7 @@ class PFS_Seller {
         add_action('plugins_loaded', function () {
             Pfs\Core\Plugin::init();
         });
+        // Pfs\Core\Plugin::init();
     }
 
 }
