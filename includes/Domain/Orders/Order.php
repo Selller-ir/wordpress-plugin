@@ -12,7 +12,7 @@ class Order {
 
     public function __construct(array $data) {
         $this->device_id   = (int) $data['device_id'];
-        $this->user_id     = (int) $data['user_id'];
+        $this->user_id     = (int) $data['user_id'] ?? null;
         $this->total_price = (int) $data['total_price'];
         $this->paid_price  = (int) $data['paid_price'];
         $this->status      = $data['status'];
