@@ -1,0 +1,2 @@
+1: edit migration NOT NULL -> NULL
+2: create product secrvises

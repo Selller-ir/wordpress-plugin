@@ -28,6 +28,7 @@ class PFS_Seller {
     {
         define('PFS_PATH', plugin_dir_path(__FILE__));
         define('PFS_URL',plugin_dir_url(__FILE__));
+        define('PFS_ASSETS',PFS_URL.'assets/');
     }
     public function init() {
         register_activation_hook(__FILE__, [$this,'activation']);

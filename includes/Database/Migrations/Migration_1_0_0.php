@@ -33,7 +33,8 @@ class Migration_1_0_0 {
                 phone_number VARCHAR(20),
                 status VARCHAR(20) NOT NULL,
                 created_at DATETIME NOT NULL,
-                PRIMARY KEY (user_id)
+                PRIMARY KEY (user_id),
+                KEY status (status)
             ) $charset;
         ");
 
@@ -47,15 +48,20 @@ class Migration_1_0_0 {
                 name VARCHAR(255) NOT NULL,
                 image_path VARCHAR(255),
                 status VARCHAR(20) NOT NULL,
-                purchase_price BIGINT NOT NULL,
-                consumer_price BIGINT NOT NULL,
+                purchase_price BIGINT NULL,
+                consumer_price BIGINT NULL,
                 sale_price BIGINT NOT NULL,
-                step_sale_quantity INT NOT NULL DEFAULT 1,
+                step_sale_quantity DECIMAL(10,3) UNSIGNED NOT NULL DEFAULT 1.00,
                 unit VARCHAR(20),
                 created_at DATETIME NOT NULL,
                 updated_at DATETIME NOT NULL,
                 PRIMARY KEY (product_id),
-                UNIQUE KEY product_sku (product_sku)
+                UNIQUE KEY product_sku (product_sku),
+                KEY name (name),
+                KEY status (status),
+                KEY purchase_price (purchase_price),
+                KEY consumer_price (consumer_price),
+                KEY sale_price (sale_price)
             ) $charset;
         ");
 
@@ -114,7 +120,10 @@ class Migration_1_0_0 {
                 PRIMARY KEY (order_id),
                 KEY device_id (device_id),
                 KEY user_id (user_id),
-                KEY created_at (created_at)
+                KEY created_at (created_at),
+                KEY total_price (total_price),
+                KEY paid_price (paid_price),
+                KEY status (status)
             ) $charset;
         ");
 

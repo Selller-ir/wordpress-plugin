@@ -1,30 +1,69 @@
 <?php
 namespace Pfs\Domain\Products;
 
-class Product {
+class Product
+{
+    public ?int $product_id = null;
 
     public string $product_sku;
     public string $name;
     public ?string $image_path;
     public string $status;
-    public float $purchase_price;
-    public float $consumer_price;
-    public float $sale_price;
-    public int $step_sale_quantity;
-    public string $unit;
 
-    public function __construct(array $data) {
+    public ?int $purchase_price;
+    public ?int $consumer_price;
+    public int $sale_price;
 
-        $this->product_sku        = (string) $data['product_sku'];
-        $this->name               = (string) $data['name'];
-        $this->image_path         = $data['image_path'] ?? null;
-        $this->status             = $data['status'] ?? 'active';
+    public float $step_sale_quantity;
+    public ?string $unit;
 
-        $this->purchase_price     = (float) ($data['purchase_price'] ?? 0);
-        $this->consumer_price     = (float) ($data['consumer_price'] ?? 0);
-        $this->sale_price         = (float) ($data['sale_price'] ?? 0);
+    public string $created_at;
+    public string $updated_at;
 
-        $this->step_sale_quantity = (int) ($data['step_sale_quantity'] ?? 1);
-        $this->unit               = (string) ($data['unit'] ?? 'unit');
+    public function __construct(
+        string $product_sku,
+        string $name,
+        string $status,
+        int $sale_price,
+        float $step_sale_quantity,
+        ?int $purchase_price = null,
+        ?int $consumer_price = null,
+        ?string $image_path = null,
+        ?string $unit = null
+    ) {
+        $this->product_sku        = $product_sku;
+        $this->name               = $name;
+        $this->status             = $status;
+        $this->sale_price         = $sale_price;
+        $this->step_sale_quantity = $step_sale_quantity;
+
+        $this->purchase_price = $purchase_price;
+        $this->consumer_price = $consumer_price;
+        $this->image_path     = $image_path;
+        $this->unit           = $unit;
+
+        $this->created_at = current_time('mysql');
+        $this->updated_at = current_time('mysql');
+    }
+
+    public static function fromDb(array $row): self
+    {
+        $product = new self(
+            $row['product_sku'],
+            $row['name'],
+            $row['status'],
+            (int) $row['sale_price'],
+            (float) $row['step_sale_quantity'],
+            isset($row['purchase_price']) ? (int) $row['purchase_price'] : null,
+            isset($row['consumer_price']) ? (int) $row['consumer_price'] : null,
+            $row['image_path'] ?? null,
+            $row['unit'] ?? null
+        );
+
+        $product->product_id = (int) $row['product_id'];
+        $product->created_at = $row['created_at'];
+        $product->updated_at = $row['updated_at'];
+
+        return $product;
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Pfs\Rest;
+namespace Pfs\Api;
 
 class Api {
 
@@ -9,7 +9,7 @@ class Api {
 
     public function routes() {
         // new \Pfs\Rest\V1\OrdersController();
-        new \Pfs\Rest\V1\ProductsController();
+        new \Pfs\Api\V1\ProductsController();
         // new \Pfs\Rest\V1\PaymentsController();
     }
 }

@@ -1,0 +1,8 @@
+/* Seller menu icon size fix */
+#adminmenu .toplevel_page_pfs-seller .wp-menu-image img {
+    width: 34px;
+    height: 20px;
+}
+.pfs-status-active { color: green; font-weight: bold; }
+.pfs-status-inactive { color: red; }
+

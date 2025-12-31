@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.3.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 772.1 772.1" style="enable-background:new 0 0 772.1 772.1;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:#7D7AED;}
+	.st2{fill:#FFFFFF;}
+</style>
+<g>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="330.7516" y1="395.7952" x2="446.8717" y2="395.7952" gradientTransform="matrix(1.2016 -1.356976e-03 3.758252e-02 -1.1263 -60.0128 835.064)">
+		<stop  offset="0" style="stop-color:#491089"/>
+		<stop  offset="1.858442e-07" style="stop-color:#491089"/>
+		<stop  offset="1" style="stop-color:#6212B3"/>
+		<stop  offset="1" style="stop-color:#501195"/>
+	</linearGradient>
+	<path class="st0" width="22px" d="M351.4,415.6l112.8,0.2c17.8,0,30.9-16.5,26.9-33.9l0,0c-3.9-16.5-22.2-25.1-37.4-17.5L351.4,415.6z"/>
+	<circle id="circle_back" class="st1" cx="386" cy="386" r="386"/>
+	<g>
+		<path id="rectangle" class="st2" d="M427.7,439H219.1c-43.6,0-85.1,17.4-111.6,47.8c-9.4,10.7-16.3,22.4-19.2,34.2l0,0l412.2,0.3"
+			/>
+		<path class="st2" d="M532.7,284c-3-0.8-6.1-0.6-8.9,0.7c-7.1,3.3-15,5.2-23.3,5.2c-8.5,0-16.5-1.9-23.7-5.4c-2.8-1.3-6-1.7-9-0.9
+			c-51.9,14.1-90,61.9-89.2,118.5c0.9,64,52.2,116.7,116.2,119.2c69,2.7,125.8-52.5,125.8-120.9C620.6,345.1,583.4,298.4,532.7,284z
+			"/>
+		<circle id="head_1_" class="st1" cx="499.6" cy="400.4" r="45.1"/>
+		<circle id="head_3_" class="st2" cx="499.6" cy="206.3" r="55"/>
+	</g>
+</g>
+</svg>

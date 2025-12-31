@@ -1,8 +1,8 @@
 <?php
-namespace Pfs\Rest\Auth;
+namespace Pfs\Api\V1\Auth;
 
 use WP_Error;
-use Pfs\Domain\Devices\DeviceRepository;
+use Pfs\Domain\Devices\DeviceService;
 use WP_REST_Request;
 
 class DeviceAuth {
@@ -30,17 +30,7 @@ class DeviceAuth {
             );
         }
 
-        $repo   = new DeviceRepository();
-        $device = $repo->findByToken($token);
-
-        if (! $device || ! $device->isActive()) {
-            return new WP_Error(
-                'invalid_device',
-                'Invalid or inactive device',
-                ['status' => 403]
-            );
-        }
-
-        return $device;
+        $serv   = new DeviceService();
+        return $serv->authenticate($token);
     }
 }

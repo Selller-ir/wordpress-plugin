@@ -1,11 +1,12 @@
 <?php
-namespace Pfs\Rest\V1;
+namespace Pfs\Api\V1;
 
 use WP_Error;
-use Pfs\Rest\Auth\DeviceAuth;
+use Pfs\Api\V1\Auth\DeviceAuth;
 use WP_REST_Request;
 
 abstract class BaseController {
+    private $device;
 
     public function __construct() {
         $this->register_routes();
@@ -17,7 +18,11 @@ abstract class BaseController {
      * احراز هویت device
      */
     protected function auth(WP_REST_Request $request) {
-        return DeviceAuth::check($request);
+        $device = DeviceAuth::check($request);
+        if (is_wp_error($device)) {
+            return $device;
+        }
+        $this->device = $device;
     }
 
     /**
