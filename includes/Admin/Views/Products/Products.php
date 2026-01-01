@@ -10,10 +10,10 @@ href="'.admin_url('admin.php?page=pfs-seller-products&action=store').'">افزو
                     <th width="120">Statuse</th>
                     <th width="60">Step Sale Quantity</th>
                     <th width="60">Unit</th>
-                    <th width="120">Created At</th>
-                    <th width="120">Purchase Price</th>
-                    <th width="120">Consumer Price</th>
-                    <th width="120">Sale Price</th>
+                    <th width="100">Created At</th>
+                    <th width="80">Purchase Price</th>
+                    <th width="80">Consumer Price</th>
+                    <th width="80">Sale Price</th>
                     <th width="80">Image</th>
                     <th width="60">Actions</th>
                 </tr>
