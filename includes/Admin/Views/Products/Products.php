@@ -14,6 +14,7 @@ href="'.admin_url('admin.php?page=pfs-seller-products&action=store').'">افزو
                     <th width="120">Purchase Price</th>
                     <th width="120">Consumer Price</th>
                     <th width="120">Sale Price</th>
+                    <th width="80">Image</th>
                     <th width="60">Actions</th>
                 </tr>
               </thead>';
@@ -54,6 +55,19 @@ href="'.admin_url('admin.php?page=pfs-seller-products&action=store').'">افزو
             echo '<td>' . esc_html(number_format($product->consumer_price)) . '</td>';
 
             echo '<td>' . esc_html(number_format($product->sale_price)) . '</td>';
+
+            echo '<td>';
+            if (!empty($product->image_path)) {
+                echo wp_get_attachment_image(
+                    $product->image_path,
+                    'thumbnail',
+                    false,
+                    ['style' => 'max-width:60px;height:auto;']
+                );
+            } else {
+                echo '-';
+            }
+            echo '</td>';
 
             echo '<td>
                     <a class="button button-small"

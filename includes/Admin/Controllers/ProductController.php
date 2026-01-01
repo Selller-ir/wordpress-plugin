@@ -5,7 +5,6 @@ namespace Pfs\Admin\Controllers;
 use Pfs\Domain\Products\ProductService;
 use Pfs\Domain\Products\Product;
 
-defined('ABSPATH') || exit;
 
 class ProductController extends BaseController
 {
@@ -113,8 +112,9 @@ class ProductController extends BaseController
     /**
      * Update product
      */
-    public function update(int $id, array $input): array
+    public function update()
     {
+
         // if ($id <= 0) {
         //     return $this->error('Invalid product id');
         // }
