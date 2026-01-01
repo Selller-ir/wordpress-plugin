@@ -4,10 +4,10 @@ href="'.admin_url('admin.php?page=pfs-seller-products&action=store').'">افزو
         echo '<table class="widefat fixed striped">';
         echo '<thead>
                 <tr>
-                    <th width="60">ID</th>
+                    <th width="20">ID</th>
                     <th width="120">Title</th>
-                    <th width="120">SKU</th>
-                    <th width="120">Statuse</th>
+                    <th width="100">SKU</th>
+                    <th width="100">Statuse</th>
                     <th width="60">Step Sale Quantity</th>
                     <th width="60">Unit</th>
                     <th width="100">Created At</th>
