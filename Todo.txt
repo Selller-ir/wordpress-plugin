@@ -1,2 +1,5 @@
-1: edit migration NOT NULL -> NULL
-2: create product secrvises
+http://wordpress.exp/wp-admin/admin.php?page=pfs-seller-products
+http://wordpress.exp/wp-admin/admin.php?page=pfs-seller-products&action=add
+
+http://wordpress.exp/wp-admin/admin.php?page=pfs-seller-products&action=edit&id=4
+http://wordpress.exp/wp-admin/admin.php?page=pfs-seller-products&action=delete&id=4

@@ -4,6 +4,7 @@ namespace Pfs\Admin\Menu;
 
 use Pfs\Admin\Pages\ProductsPage;
 use PFS\Admin\Pages\DevicesPage;
+use Pfs\Admin\Controllers\ProductController;
 
 defined('ABSPATH') || exit;
 
@@ -54,7 +55,7 @@ class SellerMenu
 
     public function renderProducts(): void
     {
-        (new ProductsPage())->render();
+        new ProductController();
     }
 
     public function renderDevices(): void

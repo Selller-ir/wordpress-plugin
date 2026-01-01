@@ -17,6 +17,7 @@ class Plugin {
         (new SellerMenu())->register();
     }
     private static function bootstrap() {
-        
+
+
     }
 }

@@ -16,5 +16,15 @@ class AdminAssets
             [],
             '1.0.0'
         );
+
+        wp_enqueue_media();
+
+        wp_enqueue_script(
+            'pfs-media',
+            PFS_ASSETS . 'js/media.js',
+            ['jquery'],
+            false,
+            true
+        );
     }
 }
