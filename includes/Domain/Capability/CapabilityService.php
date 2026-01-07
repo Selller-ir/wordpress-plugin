@@ -16,7 +16,7 @@ class CapabilityService
 
     public function grant(
         int $device_id,
-        int $product_id,
+        int $category_id,
         string $cap
     ): int|WP_Error {
 
@@ -30,7 +30,7 @@ class CapabilityService
             );
         }
 
-        if ($this->repository->exists($device_id, $product_id, $cap)) {
+        if ($this->repository->exists($device_id, $category_id, $cap)) {
             return new WP_Error(
                 'duplicate_capability',
                 'این capability قبلاً ثبت شده است',
@@ -40,7 +40,7 @@ class CapabilityService
 
         $capability = new Capability(
             $device_id,
-            $product_id,
+            $category_id,
             $cap
         );
 
@@ -49,30 +49,30 @@ class CapabilityService
 
     public function revoke(
         int $device_id,
-        int $product_id,
+        int $category_id,
         string $cap
     ): bool|WP_Error {
 
         return $this->repository->delete(
             $device_id,
-            $product_id,
+            $category_id,
             $cap
         );
     }
 
-    public function listByDevice(int $device_id): array
+    public function listCapByDevice(int $device_id): array
     {
         return $this->repository->findByDevice($device_id);
     }
 
     public function check(
         int $device_id,
-        int $product_id,
+        int $category_id,
         string $cap
     ): bool {
         return $this->repository->exists(
             $device_id,
-            $product_id,
+            $category_id,
             $cap
         );
     }

@@ -19,18 +19,18 @@ class CapabilityRepository
 
     public function exists(
         int $device_id,
-        int $product_id,
+        int $category_id,
         string $cap
     ): bool {
         return (bool) $this->db->get_var(
             $this->db->prepare(
                 "SELECT 1 FROM {$this->table}
                  WHERE device_id = %d
-                   AND product_id = %d
+                   AND category_id = %d
                    AND cap = %s
                  LIMIT 1",
                 $device_id,
-                $product_id,
+                $category_id,
                 $cap
             )
         );
@@ -42,7 +42,7 @@ class CapabilityRepository
             $this->table,
             [
                 'device_id'  => $capability->device_id,
-                'product_id' => $capability->product_id,
+                'category_id' => $capability->category_id,
                 'cap'        => $capability->cap,
             ],
             [
@@ -64,14 +64,14 @@ class CapabilityRepository
 
     public function delete(
         int $device_id,
-        int $product_id,
+        int $category_id,
         string $cap
     ): bool|WP_Error {
         $result = $this->db->delete(
             $this->table,
             [
                 'device_id'  => $device_id,
-                'product_id' => $product_id,
+                'category_id' => $category_id,
                 'cap'        => $cap,
             ],
             [

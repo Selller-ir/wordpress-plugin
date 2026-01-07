@@ -16,8 +16,8 @@ class Migration_1_0_0 {
             CREATE TABLE {$wpdb->prefix}pfs_devices (
                 device_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 name VARCHAR(255) NOT NULL,
-                status VARCHAR(20) NOT NULL,
-                token VARCHAR(100) NOT NULL,
+                status VARCHAR(32) NOT NULL,
+                token VARCHAR(128) NOT NULL,
                 PRIMARY KEY (device_id),
                 UNIQUE KEY token (token)
             ) $charset;
@@ -30,8 +30,8 @@ class Migration_1_0_0 {
             CREATE TABLE {$wpdb->prefix}pfs_users (
                 user_id BIGINT UNSIGNED NOT NULL,
                 name VARCHAR(255),
-                phone_number VARCHAR(20),
-                status VARCHAR(20) NOT NULL,
+                phone_number VARCHAR(32),
+                status VARCHAR(32) NOT NULL,
                 created_at DATETIME NOT NULL,
                 PRIMARY KEY (user_id),
                 KEY status (status)
@@ -46,13 +46,13 @@ class Migration_1_0_0 {
                 product_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 product_sku VARCHAR(100) NOT NULL,
                 name VARCHAR(255) NOT NULL,
-                image_path VARCHAR(255),
+                image_id VARCHAR(255),
                 status VARCHAR(20) NOT NULL,
-                purchase_price BIGINT NULL,
-                consumer_price BIGINT NULL,
-                sale_price BIGINT NOT NULL,
-                step_sale_quantity DECIMAL(10,3) UNSIGNED NOT NULL DEFAULT 1.00,
-                unit VARCHAR(20),
+                purchase_price DECIMAL(12, 2) NULL,
+                consumer_price DECIMAL(12, 2) NULL,
+                sale_price DECIMAL(12, 2) NOT NULL,
+                step_sale_quantity DECIMAL(10,3) UNSIGNED NOT NULL DEFAULT 1.000,
+                unit VARCHAR(64),
                 created_at DATETIME NOT NULL,
                 updated_at DATETIME NOT NULL,
                 PRIMARY KEY (product_id),
@@ -97,11 +97,11 @@ class Migration_1_0_0 {
             CREATE TABLE {$wpdb->prefix}pfs_capability (
                 id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 device_id BIGINT UNSIGNED NOT NULL,
-                product_id BIGINT UNSIGNED NOT NULL,
-                cap VARCHAR(50) NOT NULL,
+                category_id BIGINT UNSIGNED NOT NULL,
+                cap VARCHAR(64) NOT NULL,
                 PRIMARY KEY (id),
                 KEY device_id (device_id),
-                KEY product_id (product_id)
+                KEY category_id (category_id)
             ) $charset;
         ");
 
@@ -111,10 +111,9 @@ class Migration_1_0_0 {
         dbDelta("
             CREATE TABLE {$wpdb->prefix}pfs_orders (
                 order_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-                device_id BIGINT UNSIGNED NOT NULL,
-                user_id BIGINT UNSIGNED NOT NULL,
-                total_price BIGINT NOT NULL,
-                paid_price BIGINT NOT NULL,
+                user_id BIGINT UNSIGNED NULL,
+                total_price DECIMAL(12, 2) NOT NULL,
+                paid_price DECIMAL(12, 2) NOT NULL,
                 status VARCHAR(20) NOT NULL,
                 created_at DATETIME NOT NULL,
                 PRIMARY KEY (order_id),
@@ -135,8 +134,8 @@ class Migration_1_0_0 {
                 id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 order_id BIGINT UNSIGNED NOT NULL,
                 product_id BIGINT UNSIGNED NOT NULL,
-                price BIGINT NOT NULL,
-                quantity INT NOT NULL,
+                price DECIMAL(12, 2) NOT NULL,
+                quantity DECIMAL(12, 3) NOT NULL,
                 created_at DATETIME NOT NULL,
                 PRIMARY KEY (id),
                 KEY order_id (order_id),
@@ -151,10 +150,9 @@ class Migration_1_0_0 {
             CREATE TABLE {$wpdb->prefix}pfs_payments (
                 id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 order_id BIGINT UNSIGNED NOT NULL,
-                device_id BIGINT UNSIGNED NOT NULL,
-                amount BIGINT NOT NULL,
-                payment_method VARCHAR(50) NOT NULL,
-                status VARCHAR(20) NOT NULL,
+                amount DECIMAL(12, 2) NOT NULL,
+                payment_method VARCHAR(64) NOT NULL,
+                status VARCHAR(32) NOT NULL,
                 created_at DATETIME NOT NULL,
                 PRIMARY KEY (id),
                 KEY order_id (order_id),

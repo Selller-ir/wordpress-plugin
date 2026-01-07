@@ -1,65 +1,74 @@
 <?php
-
 namespace Pfs\Admin\Menu;
 
-use Pfs\Admin\Pages\ProductsPage;
-use PFS\Admin\Pages\DevicesPage;
-use Pfs\Admin\Controllers\ProductController;
-
-defined('ABSPATH') || exit;
+use Pfs\Admin\Controllers\ProductsController;
+use Pfs\Admin\Controllers\CategoriesController;
+use Pfs\Admin\Controllers\DevicesController;
 
 class SellerMenu
 {
     public function register(): void
     {
         add_action('admin_menu', [$this, 'addMenus']);
+        add_action('admin_init', [new ProductsController(), 'registerActions']);
+        add_action('admin_init', [new CategoriesController(), 'registerActions']);
+        add_action('admin_init', [new DevicesController(), 'registerActions']);
     }
 
     public function addMenus(): void
     {
         add_menu_page(
-            'فروشنده',
-            'فروشنده',
+            'فروشگاه',
+            'فروشگاه',
             'read',
-            'pfs-seller',
+            'pfs-admin',
             [$this, 'renderDashboard'],
-            PFS_ASSETS. 'image/seller_icon.svg',
+            PFS_ASSETS . 'image/seller_icon.svg',
             0
         );
 
         add_submenu_page(
-            'pfs-seller',
+            'pfs-admin',
             'محصولات',
             'محصولات',
             'read',
-            'pfs-seller-products',
+            'pfs-products',
             [$this, 'renderProducts']
         );
 
         add_submenu_page(
-            'pfs-seller',
-            'دستگاه ها',
-            'دستگاه ها',
+            'pfs-admin',
+            'دسته‌بندی‌ها',
+            'دسته‌بندی‌ها',
             'read',
-            'pfs-seller-devices',
+            'pfs-categories',
+            [$this, 'renderCategories']
+        );
+
+        add_submenu_page(
+            'pfs-admin',
+            'دستگاه‌ها',
+            'دستگاه‌ها',
+            'read',
+            'pfs-devices',
             [$this, 'renderDevices']
         );
     }
 
     public function renderDashboard(): void
     {
-        echo '<div class="wrap">';
-        echo '<h1>' . esc_html__('Seller Dashboard', 'pfs') . '</h1>';
-        echo '</div>';
+        echo '<div class="wrap"><h1>داشبورد فروشگاه</h1></div>';
     }
-
     public function renderProducts(): void
     {
-        new ProductController();
+        (new ProductsController())->render();
     }
-
+    public function renderCategories(): void
+    {
+        (new CategoriesController())->render();
+    }
     public function renderDevices(): void
     {
-        // (new DevicesPage())->render();
+        (new DevicesController())->render();
     }
 }

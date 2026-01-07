@@ -90,6 +90,34 @@ class DeviceRepository
         return true;
     }
 
+    public function updateFields(int $device_id, array $fields): bool|WP_Error
+    {
+        $allowed = ['name', 'status'];
+        $data = [];
+        $format = [];
+
+        foreach ($allowed as $key) {
+            if (array_key_exists($key, $fields)) {
+                $data[$key] = $fields[$key];
+                $format[] = '%s';
+            }
+        }
+        if (empty($data)) {
+            return new WP_Error('invalid_params', 'هیچ فیلدی برای بروزرسانی وجود ندارد', ['status' => 422]);
+        }
+
+        $result = $this->db->update(
+            $this->table,
+            $data,
+            ['device_id' => $device_id],
+            $format,
+            ['%d']
+        );
+        if ($result === false) {
+            return new WP_Error('db_error', $this->db->last_error);
+        }
+        return true;
+    }
     public function findAll(): array
     {
         $rows = $this->db->get_results(

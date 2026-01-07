@@ -6,17 +6,17 @@ class Capability
     public ?int $id = null;
 
     public int $device_id;
-    public int $product_id;
+    public int $category_id;
     public string $cap;
 
     public function __construct(
         int $device_id,
-        int $product_id,
+        int $category_id,
         string $cap
     ) 
     {
         $this->device_id  = $device_id;
-        $this->product_id = $product_id;
+        $this->category_id = $category_id;
         $this->cap        = $cap;
     }
 
@@ -24,7 +24,7 @@ class Capability
     {
         $capability = new self(
             (int) $row['device_id'],
-            (int) $row['product_id'],
+            (int) $row['category_id'],
             $row['cap']
         );
 

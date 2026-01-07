@@ -78,4 +78,25 @@ class DeviceService
     {
         return $this->repository->findAll();
     }
+
+    public function update(int $device_id, array $fields): bool|WP_Error
+    {
+        if ($device_id <= 0) {
+            return new WP_Error('invalid_id', 'شناسه دستگاه نامعتبر است', ['status' => 422]);
+        }
+        if (isset($fields['name'])) {
+            $fields['name'] = trim((string) $fields['name']);
+            if ($fields['name'] === '') {
+                return new WP_Error('invalid_name', 'نام دستگاه الزامی است', ['status' => 422]);
+            }
+        }
+        if (isset($fields['status'])) {
+            $status = (string) $fields['status'];
+            if (!in_array($status, ['active','inactive'], true)) {
+                return new WP_Error('invalid_status', 'وضعیت نامعتبر است', ['status' => 422]);
+            }
+            $fields['status'] = $status;
+        }
+        return $this->repository->updateFields($device_id, $fields);
+    }
 }

@@ -2,6 +2,7 @@
 namespace Pfs\Domain\Orders;
 
 use RuntimeException;
+use Pfs\Domain\OrderItems\OrderItemRepository;
 
 class OrderRepository {
 
@@ -42,46 +43,7 @@ class OrderRepository {
         return (int) $wpdb->insert_id;
     }
 
-    /**
-     * ایجاد سفارش به همراه آیتم‌ها (اتمیک)
-     */
-    public function createWithItems(Order $order, array $items): int {
-        global $wpdb;
-
-        $wpdb->query('START TRANSACTION');
-
-        try {
-            $orderId = $this->create($order);
-
-            foreach ($items as $item) {
-
-                $inserted = $wpdb->insert(
-                    $this->itemsTable,
-                    [
-                        'order_id'   => $orderId,
-                        'product_id' => (int) $item['product_id'],
-                        'price'      => (int) $item['price'],
-                        'quantity'   => (int) $item['quantity'],
-                        'created_at' => current_time('mysql'),
-                    ],
-                    [
-                        '%d', '%d', '%d', '%d', '%s'
-                    ]
-                );
-
-                if ($inserted === false) {
-                    throw new RuntimeException('Failed to insert order item');
-                }
-            }
-
-            $wpdb->query('COMMIT');
-            return $orderId;
-
-        } catch (\Throwable $e) {
-            $wpdb->query('ROLLBACK');
-            throw $e;
-        }
-    }
+    
 
     /**
      * دریافت لیست سفارش‌ها برای sync حسابداری
@@ -146,19 +108,21 @@ class OrderRepository {
             return null;
         }
 
-        $row['items'] = $wpdb->get_results(
-            $wpdb->prepare(
-                "
-                SELECT product_id, price, quantity
-                FROM {$this->itemsTable}
-                WHERE order_id = %d
-                ",
-                $orderId
-            ),
-            ARRAY_A
-        );
+        $itemsRepo = new OrderItemRepository();
+        $row['items'] = $itemsRepo->findByOrder($orderId);
 
-        return $this->map($row);
+        $mapped = $this->map($row);
+        if (!empty($mapped['items'])) {
+            $mapped['items'] = array_map(
+                fn($i) => [
+                    'product_id' => (int) $i['product_id'],
+                    'price'      => (int) $i['price'],
+                    'quantity'   => (float) $i['quantity'],
+                ],
+                $mapped['items']
+            );
+        }
+        return $mapped;
     }
 
     /**

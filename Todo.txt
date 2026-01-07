@@ -3,3 +3,10 @@ http://wordpress.exp/wp-admin/admin.php?page=pfs-seller-products&action=add
 
 http://wordpress.exp/wp-admin/admin.php?page=pfs-seller-products&action=edit&id=4
 http://wordpress.exp/wp-admin/admin.php?page=pfs-seller-products&action=delete&id=4
+
+تغییر ساختار دیتابیس ✅
+تغییر پیشوند افزونه به wps
+ایجاد فانکشن های Domani
+اضافه کردن categorie Domani
+شروع کار واقعی با API
+

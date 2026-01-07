@@ -33,7 +33,15 @@ class ProductService
             return $error;
         }
 
-        return $this->repository->insert($product);
+        $id = $this->repository->insert($product);
+        if ($id === 0) {
+            return new WP_Error(
+                'db_error',
+                'ثبت محصول با خطا مواجه شد',
+                ['status' => 500]
+            );
+        }
+        return $id;
     }
 
     /* =========================
@@ -76,7 +84,15 @@ class ProductService
             return $error;
         }
 
-        return $this->repository->update($product);
+        $ok = $this->repository->update($product);
+        if ($ok === false) {
+            return new WP_Error(
+                'db_error',
+                'بروزرسانی محصول با خطا مواجه شد',
+                ['status' => 500]
+            );
+        }
+        return $ok;
     }
 
     /* =========================
@@ -158,6 +174,16 @@ class ProductService
             fn(array $row) => Product::fromDb($row),
             $rows
         );
+    }
+
+    public function listForOrder(
+        int $device_id,
+        ?int $category_id = null,
+        int $limit = 20,
+        int $offset = 0
+    ): array {
+        $rows = $this->repository->findForDeviceByCap($device_id, 'order', $category_id, $limit, $offset);
+        return array_map(fn(array $row) => Product::fromDb($row), $rows);
     }
 
     /* =========================
